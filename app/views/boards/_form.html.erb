@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: board) do |form| %>
+      <% if board.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+          <ul>
+            <% board.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :title, class: 'form-label' %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :content, class: 'form-label' %>
+        <%= form.rich_text_area :content, class: "form-control", rows: "10" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+
+      <%= @board.content %>
+    <% end %>
+  </div>
+</div>
+

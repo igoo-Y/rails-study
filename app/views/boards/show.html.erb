@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @board.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @board.content.all.with_rich_text_content %>
+</p>
+
+<%= link_to 'Edit', edit_board_path(@board) %> |
+<%= link_to 'Back', boards_path %>
+
+<table>
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>조회수</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @board.posts.order("created_at DESC").each do |post| %>
+    <tr>
+      <td><%= post.id %></td>
+      <td><%= link_to post.title, board_post_path(id: post.id, board_id: @board.id) %></td>
+      <td><%= post.created_at.strftime("%Y.%m.%d") %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to '새 글 쓰기', new_board_post_path(board_id: @board.id), class: "new-btn" %>
+
